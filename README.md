@@ -1,3 +1,3 @@
 # test-approvingWorkflow
 
-CHECK
+CHECK1
