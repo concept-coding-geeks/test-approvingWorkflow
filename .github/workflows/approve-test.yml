@@ -1,0 +1,24 @@
+# .github/workflows/pull_request_approval.yml
+name: "PR Approval"
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Request Approval for Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const prNumber = context.payload.pull_request.number;
+            console.log(`PR Number: ${prNumber}`);
+            console.log('Waiting for manual approval...');
+
+      - name: Deploy to Protected Environment
+        if: success()
+        env:
+          name: prod  # Specify the environment set up earlier
+          run: echo "APPROVED"
